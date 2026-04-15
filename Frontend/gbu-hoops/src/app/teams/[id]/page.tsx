@@ -6,23 +6,40 @@ import Link from 'next/link'
 
 export const revalidate = 300
 
-//  params is now a Promise in Next.js 15
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000' : '')
+
+const withApiBase = (path: string) => {
+  if (!path) return ''
+  if (path.startsWith('http')) return path
+  if (!API_BASE) return path
+  const base = API_BASE.endsWith('/') ? API_BASE.slice(0, -1) : API_BASE
+  const cleanPath = path.startsWith('/') ? path : `/${path}`
+  return `${base}${cleanPath}`
+}
+
 type Props = {
-  params: Promise<{ id: string }>
+  params: { id: string }
 }
 
 export async function generateStaticParams() {
-  const res = await fetch('http://127.0.0.1:8000/api/teams/')
-  const teams = await res.json()
-  
-  return teams.map((team: { id: number }) => ({
-    id: String(team.id),
-  }))
+  if (!API_BASE) return []
+
+  try {
+    const res = await fetch(`${API_BASE}/api/teams/`)
+    if (!res.ok) return []
+
+    const teams = await res.json()
+
+    return teams.map((team: { id: number }) => ({
+      id: String(team.id),
+    }))
+  } catch {
+    return []
+  }
 }
 
 export default async function TeamDetailPage({ params }: Props) {
-  // ✅ await before accessing .id
-  const { id } = await params
+  const { id } = params
 
   const teamId = Number(id)
   if (isNaN(teamId)) notFound()   // guard against /teams/abc
@@ -52,7 +69,7 @@ export default async function TeamDetailPage({ params }: Props) {
       {/* Header */}
       <div className="rounded-xl p-8 flex items-center gap-7 mb-9" style={{ background: 'var(--bg2)', border: '1px solid var(--border)' }}>
         {team.logo ? (
-          <img src={`http://127.0.0.1:8000${team.logo}`} alt={team.name} style={{ width: 86, height: 86, borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--orange)', flexShrink: 0 }} />
+          <img src={withApiBase(team.logo)} alt={team.name} style={{ width: 86, height: 86, borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--orange)', flexShrink: 0 }} />
         ) : (
           <div style={{ width: 86, height: 86, borderRadius: '50%', background: 'var(--orange-glow)', border: '3px solid rgba(249,115,22,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-head)', fontSize: 36, fontWeight: 900, color: 'var(--orange)', flexShrink: 0 }}>
             {team.name[0]}

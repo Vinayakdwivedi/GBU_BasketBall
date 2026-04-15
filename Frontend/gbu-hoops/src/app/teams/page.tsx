@@ -5,6 +5,17 @@ import Link from 'next/link'
 
 export const revalidate = 300
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000' : '')
+
+const withApiBase = (path: string) => {
+  if (!path) return ''
+  if (path.startsWith('http')) return path
+  if (!API_BASE) return path
+  const base = API_BASE.endsWith('/') ? API_BASE.slice(0, -1) : API_BASE
+  const cleanPath = path.startsWith('/') ? path : `/${path}`
+  return `${base}${cleanPath}`
+}
+
 export default async function TeamsPage() {
   let teams
   try {
@@ -42,7 +53,7 @@ export default async function TeamsPage() {
               {/* Top */}
               <div className="flex items-center gap-4 p-5" style={{ background: 'var(--bg3)', borderBottom: '1px solid var(--border)' }}>
                 {team.logo ? (
-                  <img src={`http://127.0.0.1:8000${team.logo}`} alt={team.name} style={{ width: 52, height: 52, borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--border)', flexShrink: 0 }} />
+                  <img src={withApiBase(team.logo)} alt={team.name} style={{ width: 52, height: 52, borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--border)', flexShrink: 0 }} />
                 ) : (
                   <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'var(--orange-glow)', border: '2px solid rgba(249,115,22,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-head)', fontSize: 22, fontWeight: 900, color: 'var(--orange)', flexShrink: 0 }}>
                     {team.name[0]}

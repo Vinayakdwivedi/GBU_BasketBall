@@ -4,6 +4,17 @@ import Link from 'next/link'
 
 export const revalidate = 300
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000' : '')
+
+const withApiBase = (path: string) => {
+  if (!path) return ''
+  if (path.startsWith('http')) return path
+  if (!API_BASE) return path
+  const base = API_BASE.endsWith('/') ? API_BASE.slice(0, -1) : API_BASE
+  const cleanPath = path.startsWith('/') ? path : `/${path}`
+  return `${base}${cleanPath}`
+}
+
 export default async function GalleryPage() {
   let albums
   try {
@@ -36,17 +47,14 @@ export default async function GalleryPage() {
             >
               {/* Cover */}
               {album.cover ? (() => {
-                const baseUrl = 'http://127.0.0.1:8000';
-                const imgSrc = album.cover.startsWith('http') 
-                  ? album.cover 
-                  : `${baseUrl}${album.cover.startsWith('/') ? '' : '/'}${album.cover}`;
+                const imgSrc = withApiBase(album.cover)
                 return (
                   <img
                     src={imgSrc}
                     alt={album.title}
                     style={{ width: '100%', height: 200, objectFit: 'cover', display: 'block' }}
                   />
-                );
+                )
               })() : (
                 <div style={{ width: '100%', height: 200, background: 'var(--bg3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 48, borderBottom: '1px solid var(--border)' }}>
                   📸
