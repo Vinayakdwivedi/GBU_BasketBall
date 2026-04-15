@@ -19,6 +19,9 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split(',')
 # in your .env:            ALLOWED_HOSTS=localhost,127.0.0.1
 # on Render/Railway:       ALLOWED_HOSTS=yourapp.onrender.com
 
+CSRF_TRUSTED_ORIGINS = [f"https://{host}" for host in ALLOWED_HOSTS if host not in ["localhost", "127.0.0.1"]]
+CSRF_TRUSTED_ORIGINS += ['http://localhost:8000', 'http://127.0.0.1:8000']
+
 # ── Apps ──────────────────────────────────────────────────
 INSTALLED_APPS = [
     "django.contrib.admin",
