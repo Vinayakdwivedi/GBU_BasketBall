@@ -1,6 +1,6 @@
 import type { HomeData, Match, Team, FixturesData, Album, Notification } from '../types'
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000' : '')
+const API_BASE = process.env.NEXT_PUBLIC_API_URL 
 
 async function apiFetch<T>(path: string, revalidate = 30): Promise<T> {
   if (!API_BASE) {
