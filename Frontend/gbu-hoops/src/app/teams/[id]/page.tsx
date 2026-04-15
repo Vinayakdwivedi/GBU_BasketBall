@@ -11,6 +11,15 @@ type Props = {
   params: Promise<{ id: string }>
 }
 
+export async function generateStaticParams() {
+  const res = await fetch('http://127.0.0.1:8000/api/teams/')
+  const teams = await res.json()
+  
+  return teams.map((team: { id: number }) => ({
+    id: String(team.id),
+  }))
+}
+
 export default async function TeamDetailPage({ params }: Props) {
   // ✅ await before accessing .id
   const { id } = await params

@@ -18,3 +18,11 @@ export default async function AlbumDetailPage({ params }: { params: { id: string
 
   return <AlbumDetailClient album={album} />
 }
+export async function generateStaticParams() {
+  const res = await fetch('http://127.0.0.1:8000/api/gallery/')
+  const albums = await res.json()
+  
+  return albums.map((album: { id: number }) => ({
+    id: String(album.id),
+  }))
+}

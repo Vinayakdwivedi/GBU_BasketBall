@@ -4,6 +4,14 @@ import { Album } from '../../../types'
 import Link from 'next/link'
 
 const API = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000'
+export async function generateStaticParams() {
+  const res = await fetch('http://127.0.0.1:8000/api/gallery/')
+  const albums = await res.json()
+  
+  return albums.map((album: { id: number }) => ({
+    id: String(album.id),
+  }))
+}
 
 export default function AlbumDetailClient({ album }: { album: Album }) {
   const [lightbox, setLightbox] = useState<{ src: string; caption: string } | null>(null)
