@@ -259,7 +259,7 @@ export default function LandingClient({
   tournament, notifications, liveMatch, nextMatch, recentResults, stats,
 }: LandingClientProps) {
 
-  const registrationUrl = 'https://forms.google.com/your-form-id'
+  const registrationUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSezBZnKFZIqb5Ljti0dmOuFr3rb_9D4vfw03KmEPYWg4z1gmA/viewform?usp=dialog'
   const router = useRouter()
 
   useEffect(() => {

@@ -20,7 +20,7 @@ export default async function HomePage() {
           fontWeight: 600,
         }}
       >
-        Could not reach the API. Make sure Django is running on port 8000.
+        Could not reach the API. Error: {(homeResult as any).reason?.message || "Make sure Django is running and accessible."}
       </div>
     )
   }
