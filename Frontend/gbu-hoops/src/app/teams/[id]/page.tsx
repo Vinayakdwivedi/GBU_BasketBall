@@ -4,7 +4,7 @@ import { getTeam } from '../../../lib/api'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000' : '')
 
@@ -19,23 +19,6 @@ const withApiBase = (path: string) => {
 
 type Props = {
   params: { id: string }
-}
-
-export async function generateStaticParams() {
-  if (!API_BASE) return []
-
-  try {
-    const res = await fetch(`${API_BASE}/api/teams/`)
-    if (!res.ok) return []
-
-    const teams = await res.json()
-
-    return teams.map((team: { id: number }) => ({
-      id: String(team.id),
-    }))
-  } catch {
-    return []
-  }
 }
 
 export default async function TeamDetailPage({ params }: Props) {
