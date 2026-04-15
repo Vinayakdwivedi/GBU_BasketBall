@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Album } from '../../../types'
 import Link from 'next/link'
 
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000'
+const API = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000' : '')
 
 
 export default function AlbumDetailClient({ album }: { album: Album }) {
