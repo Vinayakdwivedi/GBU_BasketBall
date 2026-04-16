@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Bell, MapPin, Trophy, Calendar, Clock, Users, ExternalLink, ChevronDown } from 'lucide-react'
 import { EtheralShadow } from '@/components/ui/etheral-shadow'
+import { DottedSurface } from '@/components/ui/dotted-surface'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { Tournament, Match, Notification } from '@/types'
 
@@ -278,14 +279,9 @@ export default function LandingClient({
           HERO SECTION — Ethereal Shadow Background
       ═══════════════════════════════════════ */}
       <section style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
-        {/* Ethereal Shadow Background */}
+        {/* Dotted Surface Background */}
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <EtheralShadow
-            color="rgba(249, 115, 22, 0.6)"
-            animation={{ scale: 80, speed: 60 }}
-            noise={{ opacity: 0.8, scale: 1.2 }}
-            sizing="fill"
-          />
+          <DottedSurface className="absolute inset-0" />
         </div>
 
         {/* Dark overlay for readability */}
@@ -301,7 +297,7 @@ export default function LandingClient({
             position: 'relative', zIndex: 10,
             minHeight: '100vh',
             display: 'flex', flexDirection: 'column',
-            justifyContent: 'center',
+            justifyContent: 'center', alignItems: 'center', textAlign: 'center',
             paddingTop: 80, paddingBottom: 60,
           }}
         >
@@ -351,6 +347,7 @@ export default function LandingClient({
             <p style={{
               fontSize: 16, color: 'rgba(255,255,255,0.55)',
               maxWidth: 440, lineHeight: 1.6, marginBottom: 24,
+              marginInline: 'auto',
             }}>
               {tournament
                 ? `${tournament.name} — Live scores, fixtures & results`
