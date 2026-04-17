@@ -154,8 +154,8 @@ export function MatchRow({ match }: { match: Match }) {
         <div className="text-center px-2 md:px-0">
           {match.status === 'scheduled' ? (
             <div style={{ fontFamily: 'var(--font-head)', color: 'var(--muted)', fontSize: 13, fontWeight: 700, lineHeight: 1.4, textTransform: 'uppercase' }}>
-              <div style={{ color: 'var(--white)', fontSize: 14 }}>{dt.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}</div>
-              <div>{dt.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</div>
+              <div style={{ color: 'var(--white)', fontSize: 14 }}>{dt.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', timeZone: 'Asia/Kolkata' })}</div>
+              <div>{dt.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' })}</div>
             </div>
           ) : (
             <div style={{ fontFamily: 'var(--font-head)', fontSize: 26, fontWeight: 900, color: isLive ? 'var(--live)' : 'var(--white)', letterSpacing: -0.5 }}>

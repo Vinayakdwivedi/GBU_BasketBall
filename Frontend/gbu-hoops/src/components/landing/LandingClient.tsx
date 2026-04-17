@@ -454,13 +454,13 @@ export default function LandingClient({
                 <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                   <Calendar size={14} style={{ color: 'var(--orange)' }} />
                   <strong style={{ color: 'var(--foreground)' }}>
-                    {new Date(nextMatch.scheduled_datetime).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
+                    {new Date(nextMatch.scheduled_datetime).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' })}
                   </strong>
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                   <Clock size={14} style={{ color: 'var(--orange)' }} />
                   <strong style={{ color: 'var(--foreground)' }}>
-                    {new Date(nextMatch.scheduled_datetime).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}
+                    {new Date(nextMatch.scheduled_datetime).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' })}
                   </strong>
                 </span>
                 {nextMatch.venue && (
@@ -575,7 +575,7 @@ export default function LandingClient({
                         </div>
                       )}
                       <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 6, fontWeight: 600 }}>
-                        {new Date(n.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
+                        {new Date(n.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' })}
                       </div>
                     </div>
                   </div>

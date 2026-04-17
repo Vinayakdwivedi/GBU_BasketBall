@@ -147,7 +147,7 @@ export default async function TeamDetailPage({ params }: Props) {
                     </div>
                     {/* Metadata line (spans all 3 cols on mobile if placed here, or we do a flex column wrap) */}
                     <div className="col-span-3 text-center mt-2 border-t border-[rgba(255,255,255,0.05)] pt-2" style={{ fontFamily: 'var(--font-head)', fontSize: 10, fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', color: 'var(--muted)', lineHeight: 1.5 }}>
-                      {m.round_display} <span style={{ margin: '0 6px' }}>·</span> <span style={{ color: 'var(--muted2)' }}>{new Date(m.scheduled_datetime).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}</span>
+                      {m.round_display} <span style={{ margin: '0 6px' }}>·</span> <span style={{ color: 'var(--muted2)' }}>{new Date(m.scheduled_datetime).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', timeZone: 'Asia/Kolkata' })}</span>
                     </div>
                   </div>
                 )

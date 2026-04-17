@@ -59,7 +59,7 @@ export default async function ResultsPage() {
                     {match.round_display}
                   </span>
                   <span style={{ fontFamily: 'var(--font-head)', fontSize: 11, fontWeight: 600, letterSpacing: '0.5px', textTransform: 'uppercase', color: 'var(--muted)' }}>
-                    {dt.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
+                    {dt.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' })}
                   </span>
                 </div>
               </div>
