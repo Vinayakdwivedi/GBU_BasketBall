@@ -3,7 +3,7 @@ import { SectionHead, MatchRow } from '@/components/UI'
 import { Match } from '@/types'
 import Link from 'next/link'
 
-export const revalidate = 60
+export const revalidate = 5
 
 const ROUND_LABELS: Record<string, string> = {
   group: 'Group Stage',
