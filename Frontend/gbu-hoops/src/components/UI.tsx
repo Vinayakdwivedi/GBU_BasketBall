@@ -1,3 +1,5 @@
+'use client'
+
 import { Match } from '@/types'
 
 /* ── BADGE ── */
