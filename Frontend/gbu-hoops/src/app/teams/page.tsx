@@ -76,7 +76,7 @@ export default async function TeamsPage() {
                 <div>
                   <div style={{ fontFamily: 'var(--font-head)', fontSize: 28, fontWeight: 900, color: 'var(--orange)', lineHeight: 1 }}>
                     {/* Note: Ensure team.players exists in your DRF Serializer, otherwise this might be undefined */}
-                    {team.players ? team.players.length : 0} 
+                    {team.players ? team.players.length : 0}
                   </div>
                   <div style={{ fontFamily: 'var(--font-head)', fontSize: 11, fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', color: 'var(--muted)' }}>
                     Players

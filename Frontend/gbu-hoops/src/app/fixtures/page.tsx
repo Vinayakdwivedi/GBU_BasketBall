@@ -7,8 +7,8 @@ export const revalidate = 60
 
 const ROUND_LABELS: Record<string, string> = {
   group: 'Group Stage',
-  qf:    'Quarter Finals',
-  sf:    'Semi Finals',
+  qf: 'Quarter Finals',
+  sf: 'Semi Finals',
   final: '🏆 Final',
 }
 
@@ -47,9 +47,9 @@ export default async function FixturesPage({ searchParams }: { searchParams: { s
   }
 
   const filters = [
-    { label: 'All',       value: '' },
+    { label: 'All', value: '' },
     { label: 'Scheduled', value: 'scheduled' },
-    { label: 'Live',      value: 'live' },
+    { label: 'Live', value: 'live' },
     { label: 'Completed', value: 'completed' },
   ]
 
@@ -88,8 +88,8 @@ export default async function FixturesPage({ searchParams }: { searchParams: { s
       </div>
 
       <RoundSection label={ROUND_LABELS.group} matches={data.group} />
-      <RoundSection label={ROUND_LABELS.qf}    matches={data.qf} />
-      <RoundSection label={ROUND_LABELS.sf}    matches={data.sf} />
+      <RoundSection label={ROUND_LABELS.qf} matches={data.qf} />
+      <RoundSection label={ROUND_LABELS.sf} matches={data.sf} />
       <RoundSection label={ROUND_LABELS.final} matches={data.final} />
 
       {!data.group.length && !data.qf.length && !data.sf.length && !data.final.length && (

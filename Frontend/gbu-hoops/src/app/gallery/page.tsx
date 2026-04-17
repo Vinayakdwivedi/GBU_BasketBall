@@ -40,9 +40,9 @@ export default async function GalleryPage() {
               // Removed JS event handlers and added Tailwind hover classes here!
               // hover:-translate-y-[3px] lifts it up, hover:border-[var(--orange)] changes the border
               className="rounded-xl overflow-hidden transition-all duration-150 hover:-translate-y-[3px] hover:border-[var(--orange)]"
-              style={{ 
-                background: 'var(--bg2)', 
-                border: '1px solid var(--border)' 
+              style={{
+                background: 'var(--bg2)',
+                border: '1px solid var(--border)'
               }}
             >
               {/* Cover */}

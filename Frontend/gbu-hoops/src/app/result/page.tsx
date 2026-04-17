@@ -25,7 +25,7 @@ export default async function ResultsPage() {
         {results.map(match => {
           const winA = match.winner_id === match.team_a.id
           const winB = match.winner_id === match.team_b.id
-          const dt   = new Date(match.scheduled_datetime)
+          const dt = new Date(match.scheduled_datetime)
 
           return (
             <div
