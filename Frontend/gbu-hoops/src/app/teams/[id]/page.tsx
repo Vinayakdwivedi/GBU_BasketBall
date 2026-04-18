@@ -6,6 +6,14 @@ import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
 
+/* Ensure naive datetimes from Django are treated as IST */
+function parseIST(raw: string): Date {
+  if (/[Zz]|\+|\u2013/.test(raw.slice(19)) || /[+-]\d{2}:\d{2}$/.test(raw)) {
+    return new Date(raw)
+  }
+  return new Date(raw + '+05:30')
+}
+
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000' : '')
 
 const withApiBase = (path: string) => {
@@ -147,7 +155,7 @@ export default async function TeamDetailPage({ params }: Props) {
                     </div>
                     {/* Metadata line (spans all 3 cols on mobile if placed here, or we do a flex column wrap) */}
                     <div className="col-span-3 text-center mt-2 border-t border-[rgba(255,255,255,0.05)] pt-2" style={{ fontFamily: 'var(--font-head)', fontSize: 10, fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', color: 'var(--muted)', lineHeight: 1.5 }}>
-                      {m.round_display} <span style={{ margin: '0 6px' }}>·</span> <span style={{ color: 'var(--muted2)' }}>{new Date(m.scheduled_datetime).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', timeZone: 'Asia/Kolkata' })}</span>
+                      {m.round_display} <span style={{ margin: '0 6px' }}>·</span> <span style={{ color: 'var(--muted2)' }}>{parseIST(m.scheduled_datetime).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', timeZone: 'Asia/Kolkata' })}</span>
                     </div>
                   </div>
                 )

@@ -3,6 +3,14 @@ import { SectionHead } from '@/components/UI'
 
 export const revalidate = 60
 
+/* Ensure naive datetimes from Django are treated as IST */
+function parseIST(raw: string): Date {
+  if (/[Zz]|\+|\u2013/.test(raw.slice(19)) || /[+-]\d{2}:\d{2}$/.test(raw)) {
+    return new Date(raw)
+  }
+  return new Date(raw + '+05:30')
+}
+
 export default async function ResultsPage() {
   let results
   try {
@@ -25,7 +33,7 @@ export default async function ResultsPage() {
         {results.map(match => {
           const winA = match.winner_id === match.team_a.id
           const winB = match.winner_id === match.team_b.id
-          const dt = new Date(match.scheduled_datetime)
+          const dt = parseIST(match.scheduled_datetime)
 
           return (
             <div

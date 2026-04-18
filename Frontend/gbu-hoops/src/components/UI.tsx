@@ -123,11 +123,22 @@ export function StatBox({ number, label }: { number: number; label: string }) {
   )
 }
 
+/* ── Parse datetime as IST —— avoids server-side (UTC) mis-interpretation ── */
+function parseIST(raw: string): Date {
+  // If the string already has timezone/offset info (Z, +, – after time), parse as-is
+  if (/[Zz]|\+|\u2013/.test(raw.slice(19)) || /[+-]\d{2}:\d{2}$/.test(raw)) {
+    return new Date(raw)
+  }
+  // Naive datetime from Django (IST) – append the +05:30 offset so every
+  // environment (Vercel UTC server, Indian browser, etc.) gets the same instant
+  return new Date(raw + '+05:30')
+}
+
 /* ── MATCH ROW (used in fixtures + results) ── */
 export function MatchRow({ match }: { match: Match }) {
   const isLive = match.status === 'live'
   const isDone = match.status === 'completed'
-  const dt     = new Date(match.scheduled_datetime)
+  const dt     = parseIST(match.scheduled_datetime)
 
   return (
     <div
