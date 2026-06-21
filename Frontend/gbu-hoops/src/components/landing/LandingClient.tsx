@@ -10,13 +10,13 @@ import { AnimatePresence, motion } from 'framer-motion'
 import type { Tournament, Match, Notification } from '@/types'
 
 /* ── Notification Bell (self-contained in hero) ── */
-function HeroBell({ notifications }: { notifications: Notification[] }) {
+function HeroBell({ notification }: { notification: Notification[] }) {
   const [open, setOpen] = useState(false)
   const [read, setRead] = useState<number[]>([])
-  const unread = notifications.filter(n => !read.includes(n.id)).length
+  const unread = notification.filter(n => !read.includes(n.id)).length
 
   const handleOpen = () => {
-    if (!open) setRead(notifications.map(n => n.id))
+    if (!open) setRead(notification.map(n => n.id))
     setOpen(o => !o)
   }
 
@@ -32,7 +32,7 @@ function HeroBell({ notifications }: { notifications: Notification[] }) {
           color: open ? 'var(--orange)' : 'rgba(255,255,255,0.6)',
           transition: 'color 0.15s',
         }}
-        aria-label="Notifications"
+        aria-label="Notification"
       >
         <Bell size={20} />
         {unread > 0 && (
@@ -75,28 +75,28 @@ function HeroBell({ notifications }: { notifications: Notification[] }) {
                 fontSize: 11, fontWeight: 700, letterSpacing: 2,
                 textTransform: 'uppercase', color: 'var(--muted)',
               }}>
-                Notifications
-                {notifications.length > 0 && (
+                Notification
+                {notification.length > 0 && (
                   <span style={{ float: 'right', color: 'var(--orange)' }}>
-                    {notifications.length}
+                    {notification.length}
                   </span>
                 )}
               </div>
               <div style={{ maxHeight: 320, overflowY: 'auto' }}>
-                {notifications.length === 0 ? (
+                {notification.length === 0 ? (
                   <div style={{
                     padding: '28px 16px', textAlign: 'center',
                     fontSize: 13, color: 'var(--muted)',
                   }}>
-                    No notifications
+                    No notification
                   </div>
                 ) : (
-                  notifications.map((n, i) => (
+                  notification.map((n, i) => (
                     <div
                       key={n.id}
                       style={{
                         padding: '12px 16px',
-                        borderBottom: i < notifications.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+                        borderBottom: i < notification.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
                         display: 'flex', gap: 10, alignItems: 'flex-start',
                       }}
                     >
@@ -244,10 +244,10 @@ function ResultRow({ match }: { match: Match }) {
 ═══════════════════════════════════════════ */
 interface LandingClientProps {
   tournament: Tournament | null
-  notifications: Notification[]
+  notification: Notification[]
   liveMatch: Match | null
   nextMatch: Match | null
-  recentResults: Match[]
+  recentResult: Match[]
   stats: {
     total_teams: number
     total_matches: number
@@ -257,7 +257,7 @@ interface LandingClientProps {
 }
 
 export default function LandingClient({
-  tournament, notifications, liveMatch, nextMatch, recentResults, stats,
+  tournament, notification, liveMatch, nextMatch, recentResult, stats,
 }: LandingClientProps) {
 
   const registrationUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSezBZnKFZIqb5Ljti0dmOuFr3rb_9D4vfw03KmEPYWg4z1gmA/viewform?usp=dialog'
@@ -266,7 +266,8 @@ export default function LandingClient({
   useEffect(() => {
     // Poll the server for fresh data every 5 seconds.
     // Because revalidate is set to 2s, Next.js will fetch new server data from Django 
-    // without doing a full page reload, allowing real-time scoreboard & notifications!
+    // without doing a full page reload, allowing real-time scoreboard & 
+    // notifications!
     const interval = setInterval(() => {
       router.refresh()
     }, 5000)
@@ -303,7 +304,7 @@ export default function LandingClient({
         >
           {/* Notification Bell — top right */}
           <div style={{ position: 'absolute', top: 20, right: 16, zIndex: 20 }}>
-            <HeroBell notifications={notifications} />
+            <HeroBell notification={notification} />
           </div>
 
           {/* Status badge */}
@@ -350,8 +351,8 @@ export default function LandingClient({
               marginInline: 'auto',
             }}>
               {tournament
-                ? `${tournament.name} — Live scores, fixtures & results`
-                : 'GBU Basketball Tournament — Live scores, fixtures & results'}
+                ? `${tournament.name} — Live scores, fixtures & result`
+                : 'GBU Basketball Tournament — Live scores, fixtures & result'}
             </p>
           </div>
 
@@ -511,8 +512,8 @@ export default function LandingClient({
           </div>
         </div>
 
-        {/* ── RECENT RESULTS ── */}
-        {recentResults.length > 0 && (
+        {/* ── RECENT RESULT ── */}
+        {recentResult.length > 0 && (
           <div style={{ marginBottom: 40 }}>
             <div style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -524,7 +525,7 @@ export default function LandingClient({
                 display: 'flex', alignItems: 'center', gap: 6,
               }}>
                 <Trophy size={14} style={{ color: 'var(--orange)' }} />
-                Recent Results
+                Recent Result
               </span>
               <Link href="/results" style={{
                 fontSize: 12, fontWeight: 700, letterSpacing: 1,
@@ -535,7 +536,7 @@ export default function LandingClient({
               </Link>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {recentResults.map(match => (
+              {recentResult.map(match => (
                 <ResultRow key={match.id} match={match} />
               ))}
             </div>
@@ -543,7 +544,7 @@ export default function LandingClient({
         )}
 
         {/* ── NOTIFICATIONS FEED ── */}
-        {notifications.length > 0 && (
+        {notification.length > 0 && (
           <div>
             <div style={{
               fontSize: 11, fontWeight: 700, letterSpacing: 2,
@@ -554,7 +555,7 @@ export default function LandingClient({
               Latest Updates
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {notifications.slice(0, 5).map(n => (
+              {notification.slice(0, 5).map(n => (
                 <div key={n.id} className="glass-card" style={{ padding: '16px 18px' }}>
                   <div style={{
                     display: 'flex', alignItems: 'flex-start', gap: 10,

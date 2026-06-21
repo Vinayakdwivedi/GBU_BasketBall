@@ -1,0 +1,24 @@
+
+> gbu-hoops@0.1.0 build
+> next build
+
+▲ Next.js 16.2.3 (Turbopack)
+- Environments: .env.production
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 6.4s
+  Running TypeScript ...
+Failed to type check.
+
+./src/app/page.tsx:34:7
+Type error: Type '{ tournament: Tournament | null; notifications: any; liveMatch: Match | null; nextMatch: Match | null; recentResults: Match[]; stats: { total_teams: number; total_matches: number; completed_matches: number; remaining_matches: number; }; }' is not assignable to type 'IntrinsicAttributes & LandingClientProps'.
+  Property 'notifications' does not exist on type 'IntrinsicAttributes & LandingClientProps'. Did you mean 'notification'?
+
+  [90m32 |[0m     <[33mLandingClient[0m
+  [90m33 |[0m       tournament={data.tournament}
+[31m[1m>[0m [90m34 |[0m       notifications={notifications}
+  [90m   |[0m       [31m[1m^[0m
+  [90m35 |[0m       liveMatch={data.live_match}
+  [90m36 |[0m       nextMatch={data.next_match}
+  [90m37 |[0m       recentResults={data.recent_results}
+Next.js build worker exited with code: 1 and signal: null

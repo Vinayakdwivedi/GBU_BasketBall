@@ -1,12 +1,12 @@
 import type { HomeData, Match, Team, FixturesData, Album, Notification } from '../types'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000' : '')
-
+console.log("API_BASE=", API_BASE);
 async function apiFetch<T>(path: string, revalidate = 30): Promise<T> {
   if (!API_BASE) {
-    throw new Error('Missing NEXT_PUBLIC_API_URL. Set it in your deployment environment.')
+    const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
   }
-
+  console.log("FETCHING:", `${API_BASE}${path}`);
   const res = await fetch(`${API_BASE}${path}`, {
     next: { revalidate },
   })

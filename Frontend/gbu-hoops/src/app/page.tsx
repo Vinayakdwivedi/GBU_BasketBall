@@ -31,10 +31,10 @@ export default async function HomePage() {
   return (
     <LandingClient
       tournament={data.tournament}
-      notifications={notifications}
+      notification={notifications}
       liveMatch={data.live_match}
       nextMatch={data.next_match}
-      recentResults={data.recent_results}
+      recentResult={data.recent_results}
       stats={data.stats}
     />
   )
