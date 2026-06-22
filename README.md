@@ -234,6 +234,9 @@ Please ensure:
 
 ## Areas Where Contributions Are Welcome
 
+### Deployments
+* Move this to a serverless from EC2 (Important)
+
 ### Frontend
 
 * UI/UX improvements
