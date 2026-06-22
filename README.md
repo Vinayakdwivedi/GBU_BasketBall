@@ -304,10 +304,8 @@ New contributors can help with:
 - UI polish and animations
 - Accessibility improvements
 - Loading skeletons
-- Documentation improvements
 - Unit tests
 - API documentation
-- Dark mode support
 
 ---
 
