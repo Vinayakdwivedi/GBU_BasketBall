@@ -72,6 +72,7 @@ The platform provides real-time match updates, team management, tournament fixtu
 * AWS EC2
 * Nginx
 * PM2
+* Currently moved to vercel(nextjs) and render(django).
 
 ---
 
@@ -234,8 +235,6 @@ Please ensure:
 
 ## Areas Where Contributions Are Welcome
 
-### Deployments
-* Move this to a serverless from EC2 (Important)
 
 ### Frontend
 
